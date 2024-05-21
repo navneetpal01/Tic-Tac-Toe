@@ -77,7 +77,7 @@ fun GameScreen() {
                 .background(GrayBackground),
             contentAlignment = Alignment.Center
         ) {
-
+            BoardBase()
         }
 
         Row(
