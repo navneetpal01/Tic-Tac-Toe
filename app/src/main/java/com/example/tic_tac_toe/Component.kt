@@ -263,6 +263,48 @@ fun WinVerticalLine3(){
         )
     }
 }
+@Composable
+fun WinDiagonalLine1(){
+    Canvas(
+        modifier = Modifier
+            .size(300.dp)
+    ) {
+        drawLine(
+            color = Color.Red,
+            strokeWidth = 10f,
+            cap = StrokeCap.Round,
+            start = Offset(
+                x = 0f,
+                y = 0f,
+            ),
+            end = Offset(
+                x = size.width,
+                y = size.height
+            )
+        )
+    }
+}
+@Composable
+fun WinDiagonalLine2(){
+    Canvas(
+        modifier = Modifier
+            .size(300.dp)
+    ) {
+        drawLine(
+            color = Color.Red,
+            strokeWidth = 10f,
+            cap = StrokeCap.Round,
+            start = Offset(
+                x = size.width,
+                y = 0f,
+            ),
+            end = Offset(
+                x = 0f,
+                y = size.height
+            )
+        )
+    }
+}
 
 
 @Preview(showBackground = true)
@@ -274,4 +316,6 @@ fun PreviewBoardBase() {
     WinVerticalLine1()
     WinVerticalLine2()
     WinVerticalLine3()
+    WinDiagonalLine1()
+    WinDiagonalLine2()
 }
