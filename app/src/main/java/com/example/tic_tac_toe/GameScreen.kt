@@ -24,12 +24,17 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.BoardCellValue
 import com.example.tic_tac_toe.ui.theme.BlueCustom
 import com.example.tic_tac_toe.ui.theme.GrayBackground
 
 
 @Composable
-fun GameScreen() {
+fun GameScreen(
+    viewModel : GameViewModel
+) {
+
+    val state = viewModel.state
 
     Column(
         modifier = Modifier
@@ -78,6 +83,7 @@ fun GameScreen() {
             contentAlignment = Alignment.Center
         ) {
             BoardBase()
+
         }
 
         Row(
