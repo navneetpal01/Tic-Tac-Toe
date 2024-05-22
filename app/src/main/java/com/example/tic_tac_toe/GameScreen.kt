@@ -1,5 +1,8 @@
 package com.example.tic_tac_toe
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -104,16 +107,21 @@ fun GameScreen(
                                 .clickable(
                                     interactionSource = MutableInteractionSource(),
                                     indication = null
-                                ){
+                                ) {
                                     viewModel.onAction(UserAction.BoardTapped(cellNo))
                                 },
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            if (boardCellValue == BoardCellValue.CIRCLE) {
-                                Circle()
-                            } else if (boardCellValue == BoardCellValue.CROSS) {
-                                Cross()
+                            AnimatedVisibility(
+                                visible = viewModel.boardItems[cellNo] != BoardCellValue.NONE,
+                                enter = scaleIn(tween(1000))
+                            ) {
+                                if (boardCellValue == BoardCellValue.CIRCLE) {
+                                    Circle()
+                                } else if (boardCellValue == BoardCellValue.CROSS) {
+                                    Cross()
+                                }
                             }
                         }
                     }
