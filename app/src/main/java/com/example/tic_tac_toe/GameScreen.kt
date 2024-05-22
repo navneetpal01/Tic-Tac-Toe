@@ -2,6 +2,7 @@ package com.example.tic_tac_toe
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.BoardCellValue
+import com.example.GameState
+import com.example.VictoryType
 import com.example.tic_tac_toe.ui.theme.BlueCustom
 import com.example.tic_tac_toe.ui.theme.GrayBackground
 
@@ -127,6 +130,21 @@ fun GameScreen(
                     }
                 }
             }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                AnimatedVisibility(
+                    visible = state.hasWon,
+                    enter = fadeIn(tween(1200))
+                ) {
+                    DrawVictoryLine(state = state)
+                }
+            }
+
         }
 
         Row(
@@ -158,6 +176,25 @@ fun GameScreen(
             }
         }
     }
+}
+
+@Composable
+fun DrawVictoryLine(
+    state: GameState
+) {
+
+    when (state.victoryType) {
+        VictoryType.HORIZONTAL1 -> WinHorizontalLine1()
+        VictoryType.HORIZONTAL2 -> WinHorizontalLine2()
+        VictoryType.HORIZONTAL3 -> WinHorizontalLine3()
+        VictoryType.VERTICAL1 -> WinVerticalLine1()
+        VictoryType.VERTICAL2 -> WinVerticalLine2()
+        VictoryType.VERTICAL3 -> WinVerticalLine3()
+        VictoryType.DIAGONAL1 -> WinDiagonalLine1()
+        VictoryType.DIAGONAL2 -> WinDiagonalLine2()
+        VictoryType.NONE -> {}
+    }
+
 }
 
 
