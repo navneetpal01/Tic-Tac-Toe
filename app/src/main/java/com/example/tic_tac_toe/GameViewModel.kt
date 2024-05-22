@@ -45,6 +45,9 @@ class GameViewModel : ViewModel() {
         }
         if (state.currentTurn == BoardCellValue.CIRCLE) {
             boardItems[cellNo] = BoardCellValue.CIRCLE
+            if (checkForVictory(BoardCellValue.CIRCLE)){
+
+            }
             if (hasBoardFull()) {
                 state = state.copy(
                     hintText = "Game Draw",
@@ -73,6 +76,21 @@ class GameViewModel : ViewModel() {
     }
 
 
+    private fun checkForVictory(boardValue : BoardCellValue) : Boolean{
+        when{
+            boardItems[1] == boardValue && boardItems[2] == boardValue && boardItems[3] == boardValue ->{
+                state = state.copy(victoryType = VictoryType.HORIZONTAL1)
+                return true
+            }
+
+        }
+    }
+
+    private fun hasBoardFull(): Boolean {
+        if (boardItems.containsValue(BoardCellValue.NONE)) return false
+        else return true
+    }
+
     private fun gameReset(){
         boardItems.forEach{ (i, _) ->
             boardItems[i] = BoardCellValue.NONE
@@ -85,10 +103,6 @@ class GameViewModel : ViewModel() {
         )
     }
 
-    private fun hasBoardFull(): Boolean {
-        if (boardItems.containsValue(BoardCellValue.NONE)) return false
-        else return true
-    }
 
 
 }
