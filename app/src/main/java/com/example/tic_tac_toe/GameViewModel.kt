@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.BoardCellValue
 import com.example.GameState
+import com.example.VictoryType
 
 
 class GameViewModel : ViewModel() {
@@ -31,7 +32,7 @@ class GameViewModel : ViewModel() {
             }
 
             UserAction.PlayAgainButtonClick -> {
-
+                gameReset()
             }
 
         }
@@ -69,6 +70,19 @@ class GameViewModel : ViewModel() {
                 )
             }
         }
+    }
+
+
+    private fun gameReset(){
+        boardItems.forEach{ (i, _) ->
+            boardItems[i] = BoardCellValue.NONE
+        }
+        state = state.copy(
+            hintText = "Player '0' turn",
+            currentTurn = BoardCellValue.CIRCLE,
+            victoryType = VictoryType.NONE,
+            hasWon = false
+        )
     }
 
     private fun hasBoardFull(): Boolean {

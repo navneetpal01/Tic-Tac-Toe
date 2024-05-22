@@ -59,15 +59,15 @@ fun GameScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Player '0': 0",
+                text = "Player '0': ${state.playerCircleCount}",
                 fontSize = 16.sp
             )
             Text(
-                text = "Draw: 0",
+                text = "Draw: ${state.drawCount}",
                 fontSize = 16.sp
             )
             Text(
-                text = "Player 'X': 0",
+                text = "Player 'X': ${state.playerCrossCount}",
                 fontSize = 16.sp
             )
         }
@@ -115,7 +115,7 @@ fun GameScreen(
                         ) {
                             AnimatedVisibility(
                                 visible = viewModel.boardItems[cellNo] != BoardCellValue.NONE,
-                                enter = scaleIn(tween(1000))
+                                enter = scaleIn(tween(600))
                             ) {
                                 if (boardCellValue == BoardCellValue.CIRCLE) {
                                     Circle()
@@ -142,7 +142,7 @@ fun GameScreen(
             )
             Button(
                 onClick = {
-                    //TODO
+                    viewModel.onAction(UserAction.PlayAgainButtonClick)
                 },
                 shape = RoundedCornerShape(5.dp),
                 elevation = ButtonDefaults.buttonElevation(5.dp),
