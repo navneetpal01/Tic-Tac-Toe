@@ -39,22 +39,41 @@ class GameViewModel : ViewModel() {
     }
 
     private fun addValuesToBoard(cellNo: Int) {
-        if (boardItems[cellNo] != BoardCellValue.NONE){
+        if (boardItems[cellNo] != BoardCellValue.NONE) {
             return
         }
-        if (state.currentTurn == BoardCellValue.CIRCLE){
+        if (state.currentTurn == BoardCellValue.CIRCLE) {
             boardItems[cellNo] = BoardCellValue.CIRCLE
-            state = state.copy(
-                hintText = "Player 'X' turn",
-                currentTurn = BoardCellValue.CROSS
-            )
-        }else if (state.currentTurn == BoardCellValue.CROSS){
+            if (hasBoardFull()) {
+                state = state.copy(
+                    hintText = "Game Draw",
+                    drawCount = state.drawCount + 1
+                )
+            } else {
+                state = state.copy(
+                    hintText = "Player 'X' turn",
+                    currentTurn = BoardCellValue.CROSS
+                )
+            }
+        } else if (state.currentTurn == BoardCellValue.CROSS) {
             boardItems[cellNo] = BoardCellValue.CROSS
-            state = state.copy(
-                hintText = "Player '0' turn",
-                currentTurn = BoardCellValue.CIRCLE
-            )
+            if (hasBoardFull()) {
+                state = state.copy(
+                    hintText = "Game Draw",
+                    drawCount = state.drawCount + 1
+                )
+            } else {
+                state = state.copy(
+                    hintText = "Player '0' turn",
+                    currentTurn = BoardCellValue.CIRCLE
+                )
+            }
         }
+    }
+
+    private fun hasBoardFull(): Boolean {
+        if (boardItems.containsValue(BoardCellValue.NONE)) return false
+        else return true
     }
 
 
