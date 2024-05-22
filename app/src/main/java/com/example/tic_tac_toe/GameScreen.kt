@@ -2,6 +2,7 @@ package com.example.tic_tac_toe
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -100,7 +101,10 @@ fun GameScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(1f)
-                                .clickable {
+                                .clickable(
+                                    interactionSource = MutableInteractionSource(),
+                                    indication = null
+                                ){
                                     viewModel.onAction(UserAction.BoardTapped(cellNo))
                                 },
                             horizontalAlignment = Alignment.CenterHorizontally,
