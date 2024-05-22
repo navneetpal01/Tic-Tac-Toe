@@ -34,7 +34,7 @@ import com.example.tic_tac_toe.ui.theme.GrayBackground
 
 @Composable
 fun GameScreen(
-    viewModel : GameViewModel
+    viewModel: GameViewModel
 ) {
 
 
@@ -92,8 +92,8 @@ fun GameScreen(
                     .fillMaxWidth(0.9f)
                     .aspectRatio(1f),
                 columns = GridCells.Fixed(3),
-            ){
-                viewModel.boardItems.forEach{cellNo, boardCellValue ->
+            ) {
+                viewModel.boardItems.forEach { cellNo, boardCellValue ->
                     //Whatever we will put in this item block will be applied to all the items in the grid
                     item {
                         Column(
@@ -101,14 +101,14 @@ fun GameScreen(
                                 .fillMaxWidth()
                                 .aspectRatio(1f)
                                 .clickable {
-                                           viewModel.onAction(UserAction.BoardTapped(cellNo))
+                                    viewModel.onAction(UserAction.BoardTapped(cellNo))
                                 },
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
-                        ){
-                            if (boardCellValue == BoardCellValue.CIRCLE){
+                        ) {
+                            if (boardCellValue == BoardCellValue.CIRCLE) {
                                 Circle()
-                            }else if (boardCellValue == BoardCellValue.CROSS){
+                            } else if (boardCellValue == BoardCellValue.CROSS) {
                                 Cross()
                             }
                         }
@@ -124,7 +124,7 @@ fun GameScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Player '0' turn",
+                text = state.hintText,
                 fontSize = 24.sp,
                 fontStyle = FontStyle.Italic
             )

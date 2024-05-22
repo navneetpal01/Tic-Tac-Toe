@@ -1,17 +1,18 @@
 package com.example.tic_tac_toe
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tic_tac_toe.ui.theme.TicTacToeTheme
 
 
 class MainActivity : ComponentActivity() {
-    val viewModel by viewModels<GameViewModel>()
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.light(
@@ -22,9 +23,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TicTacToeTheme {
-                GameScreen(
-                    viewModel = viewModel
-                )
+                val viewModel = viewModel<GameViewModel>()
+                    GameScreen(
+                        viewModel = viewModel
+                    )
             }
         }
     }

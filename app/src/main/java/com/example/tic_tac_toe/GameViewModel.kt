@@ -49,7 +49,7 @@ class GameViewModel : ViewModel() {
                 currentTurn = BoardCellValue.CROSS
             )
         }else if (state.currentTurn == BoardCellValue.CROSS){
-            boardItems[cellNo] == BoardCellValue.CROSS
+            boardItems[cellNo] = BoardCellValue.CROSS
             state = state.copy(
                 hintText = "Player '0' turn",
                 currentTurn = BoardCellValue.CIRCLE
