@@ -1,6 +1,7 @@
 package com.example.tic_tac_toe
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,6 +36,7 @@ import com.example.tic_tac_toe.ui.theme.GrayBackground
 fun GameScreen(
     viewModel : GameViewModel
 ) {
+
 
     val state = viewModel.state
 
@@ -83,7 +87,34 @@ fun GameScreen(
             contentAlignment = Alignment.Center
         ) {
             BoardBase()
-
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .aspectRatio(1f),
+                columns = GridCells.Fixed(3),
+            ){
+                viewModel.boardItems.forEach{cellNo, boardCellValue ->
+                    //Whatever we will put in this item block will be applied to all the items in the grid
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1f)
+                                .clickable {
+                                           viewModel.onAction(UserAction.BoardTapped(cellNo))
+                                },
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ){
+                            if (boardCellValue == BoardCellValue.CIRCLE){
+                                Circle()
+                            }else if (boardCellValue == BoardCellValue.CROSS){
+                                Cross()
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         Row(
